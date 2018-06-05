@@ -109,7 +109,7 @@ public class FgNewsListFragment extends Fragment implements INewsView {
 
     @Override
     public void showErrorMsg(String error) {
-       tv_news.setText("加载失败"+error);
+  //     tv_news.setText("加载失败"+error);
 
     }
 }
