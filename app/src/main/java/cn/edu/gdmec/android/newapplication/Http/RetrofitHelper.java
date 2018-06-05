@@ -1,12 +1,13 @@
 package cn.edu.gdmec.android.newapplication.Http;
 
+import java.util.Observable;
 import java.util.concurrent.TimeUnit;
 
 import cn.edu.gdmec.android.newapplication.Bean.MovieBean;
 import cn.edu.gdmec.android.newapplication.Bean.NewsBean;
 import okhttp3.OkHttpClient;
-import retrofit2.Call;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -22,6 +23,7 @@ public class RetrofitHelper {
                 .baseUrl(host)
                 .client(getOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
         retrofitService=retrofit.create(RetrofitService.class);
 
@@ -39,10 +41,17 @@ public class RetrofitHelper {
 
     }
 
-    public Call<NewsBean> getNews(String type,String id,int startPage){
+//    public Call<NewsBean> getNews(String type,String id,int startPage){
+//        return retrofitService.getNews(type,id,startPage);
+//    }
+//    public Call<MovieBean> getMovies(String total){
+//        return retrofitService.getMovies(total);
+//    }
+    public rx.Observable<NewsBean> getNew(String type, String id, int startPage){
         return retrofitService.getNews(type,id,startPage);
+
     }
-    public Call<MovieBean> getMovies(String total){
+    public rx.Observable<MovieBean> getMovies(String total){
         return retrofitService.getMovies(total);
     }
 
